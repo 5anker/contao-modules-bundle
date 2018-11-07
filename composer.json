@@ -1,0 +1,59 @@
+{
+	"name": "5anker/contao-modules-bundle",
+	"description": "Code Beispiel für die drei Routing Arten in Contao 4",
+	"keywords": ["Code sample", "contao", "routing"],
+	"type": "contao-bundle",
+	"homepage": "http://contao.ninja",
+	"license": "LGPL-3.0-or-later",
+	"authors": [
+	{
+		"name": "Glen Langer",
+		"homepage": "http://contao.ninja",
+		"role": "Developer"
+	}],
+	"support":
+	{
+		"issues": "https://github.com/BugBuster1701/contao-routing-app/issues",
+		"irc": "irc://irc.freenode.org/contao.dev",
+		"source": "https://github.com/BugBuster1701/contao-routing-app",
+		"forum": "https://community.contao.org/de/forumdisplay.php?119-Sonstige-Erweiterungen"
+	},
+	"require": {
+        "php": "^7.1",
+        "patchwork/utf8": "^1.2",
+        "symfony/config": "3.4.* || 4.1.*",
+        "symfony/dependency-injection": "3.4.* || 4.1.*",
+        "symfony/http-kernel": "3.4.* || 4.1.*",
+        "symfony/yaml": "3.4.* || 4.1.*"
+    },
+    "conflict": {
+        "contao/manager-plugin": "<2.0 || >=3.0"
+    },
+    "require-dev": {
+        "contao/manager-plugin": "^2.3.1",
+        "contao/test-case": "^1.4.1",
+        "php-http/guzzle6-adapter": "^1.1",
+        "phpunit/phpunit": "^7.0",
+        "symfony/phpunit-bridge": "^3.4.5"
+    },
+	"extra": {
+        "branch-alias": {
+            "dev-4.6": "4.6.x-dev"
+        },
+		"contao-manager-plugin": "Anker\\ModulesBundle\\ContaoManager\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "Anker\\ModulesBundle\\": "src/"
+        },
+        "classmap": [
+            "src/Resources/contao/"
+        ],
+        "exclude-from-classmap": [
+            "src/Resources/contao/config/",
+            "src/Resources/contao/dca/",
+            "src/Resources/contao/languages/",
+            "src/Resources/contao/templates/"
+        ]
+    }
+}
