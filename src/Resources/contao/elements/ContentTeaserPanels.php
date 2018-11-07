@@ -121,8 +121,8 @@ class ContentTeaserPanels extends \Contao\ContentElement
 						$objFile = \FilesModel::findByUuid($objModel->teaserSRC);
 
 						if (!($objFile === null || !is_file(TL_ROOT . '/' . $objFile->path))) {
+							$row['background'] = $objFile->path;
 						}
-						$row['background'] = $objFile->path;
 					}
 
 					// Override the link target
@@ -145,6 +145,15 @@ class ContentTeaserPanels extends \Contao\ContentElement
 					$row['nofollow'] = (strncmp($objModel->robots, 'noindex,nofollow', 16) === 0);
 					$row['target'] = '';
 					$row['description'] = str_replace(["\n", "\r"], [' ', ''], $objModel->description);
+					$row['background'] = '';
+
+					if ($objModel->teaserSRC != '') {
+						$objFile = \FilesModel::findByUuid($objModel->teaserSRC);
+
+						if (!($objFile === null || !is_file(TL_ROOT . '/' . $objFile->path))) {
+							$row['background'] = $objFile->path;
+						}
+					}
 
 					// Override the link target
 					if ($objModel->type == 'redirect' && $objModel->target) {
