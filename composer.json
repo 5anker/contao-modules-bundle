@@ -11,20 +11,15 @@
 		"homepage": "http://contao.ninja",
 		"role": "Developer"
 	}],
-	"support":
-	{
-		"issues": "https://github.com/BugBuster1701/contao-routing-app/issues",
-		"irc": "irc://irc.freenode.org/contao.dev",
-		"source": "https://github.com/BugBuster1701/contao-routing-app",
-		"forum": "https://community.contao.org/de/forumdisplay.php?119-Sonstige-Erweiterungen"
-	},
 	"require": {
         "php": "^7.1",
         "patchwork/utf8": "^1.2",
         "symfony/config": "3.4.* || 4.1.*",
         "symfony/dependency-injection": "3.4.* || 4.1.*",
         "symfony/http-kernel": "3.4.* || 4.1.*",
-        "symfony/yaml": "3.4.* || 4.1.*"
+        "symfony/yaml": "3.4.* || 4.1.*",
+		"spatie/image-optimizer": "^1.1",
+		"illuminate/support": "^5.7"
     },
     "conflict": {
         "contao/manager-plugin": "<2.0 || >=3.0"
