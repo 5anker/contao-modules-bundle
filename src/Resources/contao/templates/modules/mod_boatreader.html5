@@ -1,0 +1,1 @@
+<wls-boat id="<?= $this->boat_id; ?>"></wls-boat>
