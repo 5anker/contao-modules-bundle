@@ -1,28 +1,11 @@
 <?php
 
-/*
- * This file is part of Contao.
- *
- * (c) Leo Feyer
- *
- * @license LGPL-3.0-or-later
- */
-
 namespace Anker\ModulesBundle;
 
 use Contao\Module;
 use Patchwork\Utf8;
 use Contao\CoreBundle\Exception\PageNotFoundException;
 
-/**
- * Class ModuleFaqReader
- *
- * @property Comments $Comments
- * @property string   $com_template
- * @property array    $faq_categories
- *
- * @author Leo Feyer <https://github.com/leofeyer>
- */
 class ModuleBoatReader extends Module
 {
 

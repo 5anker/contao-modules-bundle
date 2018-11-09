@@ -1,14 +1,14 @@
 {
 	"name": "5anker/contao-modules-bundle",
-	"description": "Code Beispiel für die drei Routing Arten in Contao 4",
-	"keywords": ["Code sample", "contao", "routing"],
+	"description": "Image Optimizer and some modules and elements",
+	"keywords": ["contao", "5anker", "connect"],
 	"type": "contao-bundle",
-	"homepage": "http://contao.ninja",
+	"homepage": "https://www.5-anker.com",
 	"license": "LGPL-3.0-or-later",
 	"authors": [
 	{
-		"name": "Glen Langer",
-		"homepage": "http://contao.ninja",
+		"name": "Jonas Imping",
+		"homepage": "https://www.5-anker.com",
 		"role": "Developer"
 	}],
 	"require": {
