@@ -7,3 +7,6 @@ $GLOBALS['TL_LANG']['tl_page']['backgroundSRC'][1] = '';
 
 $GLOBALS['TL_LANG']['tl_page']['teaserSRC'][0] = 'Teaserbild';
 $GLOBALS['TL_LANG']['tl_page']['teaserSRC'][1] = '';
+
+$GLOBALS['TL_LANG']['tl_page']['iconSRC'][0] = 'Menü Icon';
+$GLOBALS['TL_LANG']['tl_page']['iconSRC'][1] = '';
