@@ -1,0 +1,14 @@
+<section class="post-item">
+	<?php $align = trim($this->arrData['floatClass']) == 'float_right' ? 'right' : 'left' ?>
+	<a href="<?= $this->arrData['src']; ?>" data-lightbox="toern" data-title="Boot fahren mit Charterschein">
+		<img align="<?= $align; ?>" alt="Frau steuert Motoryacht" title="Boot fahren mit Charterschein" class="shadow" style="position: relative; <?= $align; ?>: -30px; top: -30px" src="<?= $this->arrData['src']; ?>">
+	</a>
+	<<?= $this->hl; ?> class="h4"><?= $this->headline; ?></<?= $this->hl; ?>>
+	<div class="d-inline">
+		<?php if($this->subheadline): ?>
+			<p><span class="d-block h6 text-muted"><?= $this->subheadline ?></span></p>
+		<?php endif; ?>
+		<?= $this->text; ?>
+	</div>
+	<div class="tags mt-4 text-right"></div>
+</section>

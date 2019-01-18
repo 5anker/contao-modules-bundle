@@ -1,0 +1,15 @@
+<div class="jumbotron" style="background-image: url({{thepage::background}}); background-position: center center;">
+	<div style="background: rgba(0, 0, 0, <?= strpos($this->cssClass, 'page-absolute') !== false ? '0' : '.3' ?>);">
+		<div class="jumbotron-excerpt">
+			<nav aria-label="breadcrumb" class="bc relative abs" style="z-index: 101;">
+				<div class="container relative">
+					<?php $this->insert('ce_beratung'); ?>
+					{{insert_module::31}}
+				</div>
+			</nav>
+			<div class="container pb-5" style="padding-top: 80px;">
+				<h1 class="h4 text-white text-shadow"><?= $this->headline ?></h1>
+			</div>
+		</div>
+	</div>
+</div>

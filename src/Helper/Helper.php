@@ -18,4 +18,9 @@ class Helper
 
 		return '';
 	}
+
+	public static function currentPage()
+	{
+		return $GLOBALS['objPage'];
+	}
 }

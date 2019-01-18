@@ -17,9 +17,9 @@ class ContentTeaserPanels extends \Contao\ContentElement
 		}
 
 		// Always return an array (see #4616)
-		$this->pages = \StringUtil::deserialize($this->pages, true);
+		$this->linkedPages = \StringUtil::deserialize($this->linkedPages, true);
 
-		if (empty($this->pages) || $this->pages[0] == '') {
+		if (empty($this->linkedPages) || $this->linkedPages[0] == '') {
 			return '';
 		}
 
@@ -46,7 +46,7 @@ class ContentTeaserPanels extends \Contao\ContentElement
 		}
 
 		// Get all active pages
-		$objPages = \PageModel::findPublishedRegularWithoutGuestsByIds($this->pages);
+		$objPages = \PageModel::findPublishedRegularWithoutGuestsByIds($this->linkedPages);
 
 		// Return if there are no pages
 		if ($objPages === null) {

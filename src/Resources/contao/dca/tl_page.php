@@ -49,3 +49,11 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['iconSRC'] = [
 	],
 	'sql'                     => "binary(16) NULL"
 ];
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['import_id'] = [
+	'sql'                     => "varchar(100) NULL"
+];
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['import_data'] = [
+	'sql'                     => "longtext NOT NULL default ''"
+];
