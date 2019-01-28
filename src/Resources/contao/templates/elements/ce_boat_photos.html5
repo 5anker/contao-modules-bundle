@@ -1,0 +1,21 @@
+<div class="row">
+	<div class="col-6 mb-3">
+		<div class="relative">
+			<div class="image-layer">Außenansicht</div>
+			<a href="https://connect.5-anker.com<?= ($this->boat->photo_url) ?>" data-lightbox="<?= (($this->boat->model->manufacturer->name. ' '. $this->boat->model->name. ' '. $this->boat->id)) ?>" data-title="<?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> Außenansicht 1">
+				<img src="https://connect.5-anker.com<?= ($this->boat->photo_url) ?>" class="img-fluid" alt="<?= $this->boat->type->name ?> mieten" title="<?= $this->boat->type->name ?> mieten">
+			</a>
+		</div>
+	</div>
+
+	<?php foreach($this->boat->images as $key => $image): ?>
+		<div class="col-6 mb-3">
+			<div class="relative">
+				<div class="image-layer"><?= $image->image_type ?></div>
+				<a href="https://connect.5-anker.com<?= ($image->photo_url) ?>" data-lightbox="<?= (($this->boat->model->manufacturer->name. ' '. $this->boat->model->name. ' '. $this->boat->id)) ?>" data-title="<?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>" title="<?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>">
+					<img src="https://connect.5-anker.com<?= ($image->photo_url) ?>" class="img-fluid" alt="<?= $this->boat->type->name ?> mieten - <?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>" title="<?= $this->boat->type->name ?> mieten - <?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>">
+				</a>
+			</div>
+		</div>
+	<?php endforeach; ?>
+</div>

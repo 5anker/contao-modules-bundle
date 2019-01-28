@@ -1,0 +1,155 @@
+<?php $this->insert('ce_boat_license'); ?>
+
+<div class="row mt-3">
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+		<table class="table table-sm">
+			<tr>
+				<th style="width: 50%">Typ</th>
+				<td><?= $this->boat->type->name ?></td>
+			</tr>
+			<?php if($this->boat->motor): ?>
+			<tr>
+				<th>Motor</th>
+				<td><?= $this->boat->motor ?></td>
+			</tr>
+			<?php endif; ?>
+			<tr>
+				<th>Antriebsart</th>
+				<td>
+					<?php if($this->boat->drive == 0): ?>Innenborder
+					<?php endif; ?>
+					<?php if($this->boat->drive == 1): ?>Außenborder
+					<?php endif; ?>
+					<?php if($this->boat->drive == 2): ?>Z-Antrieb
+					<?php endif; ?>
+					<?php if($this->boat->drive == 3): ?>Saildrive
+					<?php endif; ?>
+				</td>
+			</tr>
+			<?php if($this->boat->length): ?>
+			<tr>
+				<th>Länge</th>
+				<td><?= Anker\ModulesBundle\Helper\Formatter::m($this->boat->length) ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->width): ?>
+			<tr>
+				<th>Breite</th>
+				<td><?= Anker\ModulesBundle\Helper\Formatter::m($this->boat->width) ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->height): ?>
+			<tr>
+				<th>Höhe</th>
+				<td><?= Anker\ModulesBundle\Helper\Formatter::m($this->boat->height) ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->depth): ?>
+			<tr>
+				<th>Tiefgang</th>
+				<td><?= Anker\ModulesBundle\Helper\Formatter::m($this->boat->depth) ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->headroom): ?>
+			<tr>
+				<th>Stehhöhe</th>
+				<td><?= Anker\ModulesBundle\Helper\Formatter::m($this->boat->headroom) ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->fuel_tank): ?>
+			<tr>
+				<th>Kraftstofftank</th>
+				<td><?= $this->boat->fuel_tank ?>l</td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->water_tank): ?>
+			<tr>
+				<th>Wassertank</th>
+				<td><?= $this->boat->water_tank ?> l</td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->savage_tank): ?>
+			<tr>
+				<th>Schmutzwassertank</th>
+				<td><?= $this->boat->savage_tank ?> l</td>
+			</tr>
+			<?php endif; ?>
+		</table>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+		<table class="table table-sm">
+			<?php if($this->boat->ps): ?>
+			<tr>
+				<th>PS</th>
+				<td><?= $this->boat->ps ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->consumption): ?>
+			<tr>
+				<th>Verbauch</th>
+				<td><?= Anker\ModulesBundle\Helper\Formatter::l($this->boat->consumption) ?>/Stunde</td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->power): ?>
+			<tr>
+				<th width="50%">Strom</th>
+				<td><?= $this->boat->power ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->people): ?>
+			<tr>
+				<th>Personen</th>
+				<td><?= $this->boat->people ?> (maximal <?= $this->boat->people_max ?>)</td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->cabins): ?>
+			<tr>
+				<th>Kabinen</th>
+				<td><?= $this->boat->cabins ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->berth->fixed): ?>
+			<tr>
+				<th>Kojen (fest)</th>
+				<td><?= $this->boat->berth->fixed ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->berth->variable): ?>
+			<tr>
+				<th>Kojen (variabel)</th>
+				<td><?= $this->boat->berth->variable ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->strahlruder): ?>
+			<tr>
+				<th>Strahlruder</th>
+				<td><?= $this->boat->thruster ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->toilets): ?>
+			<tr>
+				<th>Bäder/WC</th>
+				<td><?= $this->boat->toilets ?></td>
+			</tr>
+			<?php endif; ?>
+			<?php if($this->boat->showers): ?>
+			<tr>
+				<th>Duschen</th>
+				<td><?= $this->boat->showers ?></td>
+			</tr>
+			<?php endif; ?>
+			<tr style="width: 50%">
+				<th>Haustiere erlaubt</th>
+				<td><?= $this->boat->animals ? 'Ja' : 'Nein' ?></td>
+			</tr>
+		</table>
+	</div>
+</div>
+<?php if(count($this->boat->decors)): ?>
+<h4 class="text-primary mt-3">Ausstattung</h4>
+<div class="d-flex flex-wrap mb-0 decors">
+	<?php foreach ($this->boat->decors as $decor): ?>
+		<span class="d-block relative pl-4 pr-3"><i class="bicon-circle text-success mr-2 mt-1 abs-left"></i><?= $decor->name ?></span>
+	<?php endforeach; ?>
+</div>
+<?php endif; ?>

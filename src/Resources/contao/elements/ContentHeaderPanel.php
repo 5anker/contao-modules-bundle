@@ -30,6 +30,8 @@ class ContentHeaderPanel extends \Contao\ContentElement
 			$this->strTemplate = 'ce_jumbobox';
 		} elseif ($this->header_type == 'mini') {
 			$this->strTemplate = 'ce_jumbomini';
+		} elseif ($this->header_type == 'thumb') {
+			$this->strTemplate = 'ce_jumbotron_thumb';
 		}
 
 		return parent::generate();
@@ -54,6 +56,18 @@ class ContentHeaderPanel extends \Contao\ContentElement
 		}
 
 		$this->Template->text = \StringUtil::encodeEmail($this->Template->text);
+
+		$this->Template->addImage = false;
+
+		// Add an image
+		if ($this->addImage && $this->singleSRC != '') {
+			$objModel = \FilesModel::findByUuid($this->singleSRC);
+
+			if ($objModel !== null && is_file(TL_ROOT . '/' . $objModel->path)) {
+				$this->singleSRC = $objModel->path;
+				$this->addImageToTemplate($this->Template, $this->arrData, null, null, $objModel);
+			}
+		}
 	}
 }
 

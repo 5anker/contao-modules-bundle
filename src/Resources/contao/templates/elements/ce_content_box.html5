@@ -1,14 +1,21 @@
 <section class="post-item <?= $this->class ?>">
 	<?php $align = trim($this->arrData['floatClass']) == 'float_right' ? 'right' : 'left' ?>
-	<a href="<?= $this->arrData['src']; ?>" data-lightbox="toern" data-title="<?= $this->arrData['title']; ?>">
-		<img align="<?= $align; ?>" alt="<?= $this->arrData['alt']; ?>" title="<?= $this->arrData['title']; ?>" class="shadow" style="position: relative; <?= $align; ?>: -30px; top: -30px" src="<?= $this->arrData['src']; ?>">
+	<?php if($this->arrData['src']): ?>
+	<a href="<?= $this->arrData['src']; ?>" data-lightbox="toern" data-title="<?= $this->arrData['title'] ?: $this->headline; ?>">
+		<img align="<?= $align; ?>" alt="<?= $this->arrData['alt'] ?: $this->headline; ?>" title="<?= $this->arrData['title'] ?: $this->headline; ?>" class="shadow" style="position: relative; <?= $align; ?>: -30px; top: -30px" src="<?= $this->arrData['src']; ?>">
 	</a>
-	<<?= $this->hl; ?> class="h4"><?= $this->headline; ?></<?= $this->hl; ?>>
-	<div class="d-inline">
-		<?php if($this->subheadline): ?>
+	<?php endif; ?>
+	<div class="p-3 p-lg-0">
+		<<?= $this->hl; ?> class="h4">
+			<?= $this->headline; ?>
+		</<?= $this->hl; ?>>
+		<div class="d-inline">
+			<?php if($this->subheadline): ?>
 			<p><span class="d-block h6 text-muted"><?= $this->subheadline ?></span></p>
-		<?php endif; ?>
-		<?= $this->text; ?>
+			<?php endif; ?>
+			<?= $this->text; ?>
+		</div>
+		<div class="tags mt-4 text-right"></div>
 	</div>
-	<div class="tags mt-4 text-right"></div>
+	<div class="clearfix"></div>
 </section>

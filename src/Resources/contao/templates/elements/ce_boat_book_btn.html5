@@ -1,0 +1,4 @@
+<div class="card-footer d-flex align-items-center justify-content-end">
+	<wls-boat-actions id="<?= $this->boat->id; ?>"></wls-boat-actions>
+	<button data-track="pageBoatScrollToAvailability" class="btn btn-yellow" data-scroll="#availability"><i class="shiny"></i>Jetzt buchen<span>oder reservieren</span></button>
+</div>

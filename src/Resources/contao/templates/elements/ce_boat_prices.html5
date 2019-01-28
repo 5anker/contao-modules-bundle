@@ -1,0 +1,73 @@
+<table class="table table-sm mt-2">
+	<tr>
+		<th>
+			Kaution
+			<div class="description text-muted" style="font-weight: 400;">
+				Die Kaution ist am Tag der Anreise in Bar zu hinterlegen
+			</div>
+		</th>
+		<td class="text-right" width="200"><?= Anker\ModulesBundle\Helper\Currency::parse($this->boat->bond) ?></td>
+	</tr>
+	<tr>
+		<th>
+			Kraftstoff
+			<?php if($this->boat->consumption && $this->boat->fuel_payoff == 'liter'): ?>
+				<div class="description text-muted" style="font-weight: 400;">
+					Verbrauch liegt ungefähr bei <?= Anker\ModulesBundle\Helper\Formatter::l($this->boat->consumption) ?>/Stunde
+				</div>
+			<?php endif; ?>
+		</th>
+		<td class="text-right">
+			<?php if($this->boat->fuel_payoff == 'inclusive'): ?>
+				inklusive
+			<?php elseif($this->boat->fuel_payoff == 'hours'): ?>
+				nach Betriebsstunden
+			<?php else: ?>
+				nach Verbauch
+			<?php endif; ?>
+		</td>
+	</tr>
+	<?php if($this->boat->tail_end_type == 'i' || $this->boat->tail_end): ?>
+	<tr>
+		<th>
+			Endreinigung
+		</th>
+		<td class="text-right"><?= $this->boat->tail_end_type == 'i' ? 'im Reisepreis enthalten' : Anker\ModulesBundle\Helper\Currency::parse($this->boat->tail_end) ?></td>
+	</tr>
+	<?php endif; ?>
+	<?php foreach($this->boat->options as $option): ?>
+		<tr>
+			<th>
+				<?= $option->name ?>
+				<div class="description text-muted" style="font-weight: 400;">
+					<?= $option->description; ?>
+				</div>
+			</th>
+			<td class="text-right" width="120"><?= $option->total_price == 0 ? 'im Reisepreis enthalten' : Anker\ModulesBundle\Helper\Currency::parse($option->total_price) ?></td>
+		</tr>
+	<?php endforeach; ?>
+</table>
+
+<?php if(count($this->boat->extras)): ?>
+	<h3 class="h4 mb-3 mt-4">Optionale Serviceleistungen</h3>
+
+	<table class="table table-sm">
+		<?php foreach($this->boat->extras as $extra): ?>
+			<tr>
+				<th>
+					<?= $extra->name ?>
+					<div class="description text-muted" style="font-weight: 400;">
+						<?= $extra->description; ?>
+					</div>
+				</th>
+				<td class="text-right" width="120">
+					<?php if($extra->price_type == 'extend'): ?>
+						<?= Anker\ModulesBundle\Helper\Currency::parse($extra->range[0]) ?> - <?= Anker\ModulesBundle\Helper\Currency::parse($extra->range[1]) ?></span>
+					<?php else: ?>
+						<?= $extra->total_price == 0 ? 'im Reisepreis enthalten' : Anker\ModulesBundle\Helper\Currency::parse($extra->total_price) ?>
+					<?php endif; ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
+	</table>
+<?php endif; ?>

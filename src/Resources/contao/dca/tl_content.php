@@ -4,7 +4,7 @@
 
 $GLOBALS['TL_DCA']['tl_content']['palettes']['teaser_panels'] = '{type_legend},type;{pages_legend},linkedPages;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
 
-$GLOBALS['TL_DCA']['tl_content']['palettes']['header_panel'] = '{type_legend},type;{header_panel_legend},header_type,headline,subheadline,text;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['header_panel'] = '{type_legend},type;{header_panel_legend},header_type,headline,subheadline,text,addImage;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
 
 $GLOBALS['TL_DCA']['tl_content']['palettes']['text_image_box'] = '{type_legend},type;{header_panel_legend},headline,subheadline,text,addImage,linkedPages;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests;{invisible_legend:hide},invisible,start,stop';
 

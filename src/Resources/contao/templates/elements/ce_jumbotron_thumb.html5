@@ -1,0 +1,31 @@
+<div class="jumbotron" style="background-image: url({{thepage::background}}); background-position: center center;">
+	<div class="h300" style="background: rgba(0, 0, 0, <?= strpos($this->cssClass, 'page-absolute') !== false ? '0' : '.3' ?>);">
+		<div class="jumbotron-thumbnail">
+			<nav aria-label="breadcrumb" class="bc relative abs" style="z-index: 101;">
+				<div class="container relative">
+					<?php $this->insert('ce_beratung'); ?>
+					{{insert_module::31}}
+				</div>
+			</nav>
+			<div class="container relative h400" style="max-height: 400px;">
+				<div class="slick-boat">
+					<div class="s-item">
+						<div class="inner">
+							<div class="review-stars"><i class="active"></i><i class="active"></i><i class="active"></i><i class="active"></i><i class="active"></i></div>
+							<h1 class="h1"><?= $this->headline ?><span class="h2"><?= $this->subheadline ?></span></h1>
+						</div>
+					</div>
+					<div class="s-item">
+						<div class="inner">
+							<?= $this->text ?>
+						</div>
+					</div>
+				</div>
+				<div class="thumbnail d-none d-lg-block">
+					<div class="relative"><img alt="<?= $this->arrData['alt']; ?>" title="<?= $this->arrData['title']; ?>" src="<?= $this->arrData['src']; ?>" /></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<?= implode('', $this->elements); ?>

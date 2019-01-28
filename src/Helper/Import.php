@@ -10,14 +10,15 @@ class Import extends System
 {
 	public function importBoats()
 	{
-		return true;
+		//return true;
 
 		$page = $this->getOption('boats_page', 1);
 
 		$curler = new Curler('023d2dc527bcf90d339a0c49bb39174a');
 		$query = $curler->get('remote/wp/boat', [
-			'limit' => 2,
+			'limit' => 50,
 			'updated_at' => 'gt:' . $this->getOption('boats_last', '2015-01-01 00:00:00'),
+			'sort' => 'id desc',
 			'page' => $page
 		]);
 
@@ -40,7 +41,7 @@ class Import extends System
 		if ($np = \PageModel::findOneBy('import_id', 'boat:' . $boat->id)) {
 			$np->import_id = 'boat:' . $boat->id;
 			$np->import_data = json_encode($boat);
-			$np->title = $boat->title;
+			$np->title = $boat->model->manufacturer->name . ' ' . $boat->model->name . ' Nr. ' . $boat->id;
 			$np->alias = $boat->slug;
 			$np->pageTitle = $boat->title . ' - Bootsreisen24';
 			$np->description = $boat->metas->meta_description ?? '';
@@ -52,7 +53,7 @@ class Import extends System
 			$np->pid = 201;
 			$np->tstamp = time();
 			$np->sorting = 846;
-			$np->title = $boat->title;
+			$np->title = $boat->model->manufacturer->name . ' ' . $boat->model->name . ' Nr. ' . $boat->id;
 			$np->alias = $boat->slug;
 			$np->description = $boat->metas->meta_description ?? '';
 			$np->type = 'regular';
@@ -72,7 +73,7 @@ class Import extends System
 			$npa->pid = $np->id;
 			$npa->sorting = 64;
 			$npa->tstamp = time();
-			$npa->title = $boat->title;
+			$npa->title = $boat->model->manufacturer->name . ' ' . $boat->model->name . ' Nr. ' . $boat->id;
 			$npa->alias = $boat->slug;
 			$npa->author = 1;
 			$npa->inColumn = 'before';
