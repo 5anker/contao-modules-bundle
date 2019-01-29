@@ -1,0 +1,9 @@
+league_glide:
+    path:     /img/{path}
+    defaults:
+        _controller: AnkerModulesBundle:Frontend:img
+        _scope: frontend
+        _token_check: false
+        path: ''
+    requirements:
+        path: '.*'

@@ -12,28 +12,38 @@ class InsertTags extends \Frontend
 			return false;
 		}
 
-		// Parameter abtrennen
 		$arrSplit = explode('::', $strTag);
 
 		if ($arrSplit[0] != 'thepage' && $arrSplit[0] != 'cache_thepage') {
-			//nicht unser Insert-Tag
 			return false;
 		}
 
-		// Parameter angegeben?
-		if (isset($arrSplit[1]) && $arrSplit[1] == 'background') {
-			return Helper::imageUrl($page->backgroundSRC ?: '8ba259fd-18b0-11e9-b2e0-5254a2018744');
-		} elseif (isset($arrSplit[1]) && $arrSplit[1] == 'teaser') {
-			return Helper::imageUrl($page->teaserSRC);
-		} elseif (isset($arrSplit[1]) && $arrSplit[1] == 'icon') {
-			return Helper::imageUrl($page->iconSRC);
-		} elseif (isset($arrSplit[1]) && $arrSplit[1] == 'beratung') {
+		if (!isset($arrSplit[1])) {
+			return false;
+		}
+
+		$url = null;
+		$arrSplit2 = explode('?', $arrSplit[1]);
+
+		if ($arrSplit2[0] == 'background') {
+			$url = Helper::imageUrl($page->backgroundSRC ?: '8ba259fd-18b0-11e9-b2e0-5254a2018744');
+		} elseif ($arrSplit2[0] == 'teaser') {
+			$url = Helper::imageUrl($page->teaserSRC);
+		} elseif ($arrSplit2[0] == 'icon') {
+			$url = Helper::imageUrl($page->iconSRC);
+		}
+
+		if ($arrSplit2[0] == 'beratung') {
 			$tpl = new \FrontendTemplate('beratung');
 
 			return $tpl->parse();
-		} else {
-			return false;
 		}
+
+		if (count($arrSplit2) == 2) {
+			return static::replaceInsertTagsImage('img::' . $arrSplit[1]);
+		}
+
+		return $url;
 	}
 
 	public static function replaceInsertTagsImage($strTag)
@@ -53,6 +63,7 @@ class InsertTags extends \Frontend
 
 			if (count($split) == 2) {
 				parse_str($split[1], $output);
+				ksort($output);
 
 				return Image::make($split[0], $output);
 			}

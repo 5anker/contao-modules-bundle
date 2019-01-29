@@ -2,32 +2,25 @@
 
 namespace Anker\ModulesBundle\Helper;
 
-use Contao\File;
-use ImageOptimizer;
-use Spatie\Glide\GlideImage;
-
 class Image
 {
 	public static function make($image, $params = [])
 	{
-		if (!is_file(TL_ROOT . '/web' . $image)) {
-			return $image;
+		$baseImage = TL_ROOT . '/web/' . trim($image, '/');
+
+		if (!is_file($baseImage)) {
+			return '/files/br24de/images/dummy.png';
 		}
 
-		$objFile = new File($image);
-		$strCacheName = 'assets/images/' . substr($objFile->filename, -1) . '/' . $objFile->filename . '-' . substr(md5($watermark . '-' . $position . '-' . $objFile->mtime), 0, 8) . '.' . $objFile->extension;
+		$objFile = (object)pathinfo($image);
+		$allParams = array_merge(['markpos' => 'bottom-left', 'mark' => 'watermark.png', 'markh' => '6w', 'markx' => '2w', 'marky' => '2w'], $params);
+		ksort($allParams);
 
-		if (is_file(TL_ROOT . '/' . $strCacheName)) {
-			return $strCacheName;
+		$strCacheName = 'assets/images/' . substr($objFile->filename, -1) . '/' . $objFile->filename . '-' . substr(md5(http_build_query($allParams)), 0, 12) . '.' . $objFile->extension;
+
+		if (!is_file(TL_ROOT . '/' .$strCacheName)) {
+			return 'img/' . trim($image, '/') . '?' . http_build_query($params);
 		}
-
-		$params = array_merge(['markpos' => 'bottom-left', 'mark' => '/files/br24de/images/watermark.png', 'markh' => '6w', 'markx' => '2w', 'marky' => '2w'], $params);
-
-		GlideImage::create($image)
-			->modify($params)
-			->save($strCacheName);
-
-		ImageOptimizer::optimize($strCacheName);
 
 		return $strCacheName;
 	}

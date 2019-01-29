@@ -33,3 +33,5 @@ if (TL_MODE == 'BE') {
 $GLOBALS['TL_HOOKS']['postUpload'][] = ['Anker\ModulesBundle\Helper\Upload', 'processPostUpload'];
 
 $GLOBALS['TL_CRON']['minutely'][] = ['Anker\ModulesBundle\Helper\Import', 'importBoats'];
+
+$GLOBALS["TL_HOOKS"]['generatePage'][] = ['Anker\ModulesBundle\Classes\NewsMeta', 'onGeneratePage'];
