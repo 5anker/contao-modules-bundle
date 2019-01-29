@@ -28,6 +28,20 @@ class ContentTextBox extends \Contao\ContentElement
 		$this->Template->subheadline = $this->subheadline;
 		$this->Template->addImage = false;
 
+		$tags = unserialize($this->listitems);
+		$templateTags = [];
+
+		if (TL_MODE == 'FE') {
+			foreach ($tags as $tag) {
+				if (!empty($tag)) {
+					list($type, $no, $title) = explode('::', $tag);
+					$templateTags[] = '<a class="btn btn-sm btn-yellow" href="{{'.$type.'_url::'.$no.'}}" title="{{'.$type.'_title::'.$no.'}}">' . $title . '</a>';
+				}
+			}
+		}
+
+		$this->Template->tags = $templateTags;
+
 		// Add an image
 		if ($this->addImage && $this->singleSRC != '') {
 			$objModel = \FilesModel::findByUuid($this->singleSRC);

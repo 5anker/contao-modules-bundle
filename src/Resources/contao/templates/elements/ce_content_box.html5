@@ -15,7 +15,11 @@
 			<?php endif; ?>
 			<?= $this->text; ?>
 		</div>
-		<div class="tags mt-4 text-right"></div>
+		<?php if(count($this->tags)): ?>
+			<div class="tags mt-4 text-<?= $align == 'left' ? 'right' : 'left'; ?>">
+				<?php foreach($this->tags as $tag) echo $tag; ?>
+			</div>
+		<?php endif; ?>
 	</div>
 	<div class="clearfix"></div>
 </section>

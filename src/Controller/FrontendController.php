@@ -22,14 +22,17 @@ class FrontendController extends Controller
 	public function imgAction(Request $request, $path)
 	{
 		$image = TL_ROOT . '/web/' . trim($path, '/');
-		parse_str($request->getQueryString(), $params);
+		$split = explode('?', $request->getRequestUri());
+		$query = count($split) == 2 ? $split[1] : '';
+
+		parse_str($query, $params);
 
 		if (!is_file($image)) {
 			return new BinaryFileResponse(TL_ROOT. '/files/br24de/images/dummy.png');
 		}
 
 		$objFile = (object)pathinfo($image);
-		$allParams = array_merge(['markpos' => 'bottom-left', 'mark' => 'watermark.png', 'markh' => '6w', 'markx' => '2w', 'marky' => '2w'], $params);
+		$allParams = array_merge(['markpos' => 'bottom-left', 'mark' => 'watermark.png', 'markh' => '6w', 'markx' => '2w', 'marky' => '2w', 'fit' => 'max'], $params);
 		ksort($allParams);
 
 		mkdir(TL_ROOT . '/assets/images/' . substr($objFile->filename, -1), 0755, true);
