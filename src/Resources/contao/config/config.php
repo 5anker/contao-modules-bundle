@@ -1,6 +1,7 @@
 <?php
 
-$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTags'];
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsPage'];
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsImage'];
 
 // Add back end modules
 // array_insert($GLOBALS['BE_MOD']['content'], 5, [

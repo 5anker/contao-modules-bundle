@@ -19,7 +19,8 @@
         "symfony/http-kernel": "3.4.* || 4.1.*",
         "symfony/yaml": "3.4.* || 4.1.*",
 		"spatie/image-optimizer": "^1.1",
-		"illuminate/support": "^5.7"
+		"illuminate/support": "^5.7",
+		"league/glide": "^1.4"
     },
     "conflict": {
         "contao/manager-plugin": "<2.0 || >=3.0"

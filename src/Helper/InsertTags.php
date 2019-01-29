@@ -4,7 +4,7 @@ namespace Anker\ModulesBundle\Helper;
 
 class InsertTags extends \Frontend
 {
-	public static function replaceInsertTags($strTag)
+	public static function replaceInsertTagsPage($strTag)
 	{
 		$page = $GLOBALS['objPage'];
 
@@ -31,6 +31,33 @@ class InsertTags extends \Frontend
 			$tpl = new \FrontendTemplate('beratung');
 
 			return $tpl->parse();
+		} else {
+			return false;
+		}
+	}
+
+	public static function replaceInsertTagsImage($strTag)
+	{
+		// Parameter abtrennen
+		$arrSplit = explode('::', $strTag);
+
+		if ($arrSplit[0] != 'img' && $arrSplit[0] != 'cache_img') {
+			//nicht unser Insert-Tag
+			return false;
+		}
+
+		// Parameter angegeben?
+		if (isset($arrSplit[1])) {
+			$query = $arrSplit[1];
+			$split = explode('?', $query);
+
+			if (count($split) == 2) {
+				parse_str($split[1], $output);
+
+				return Image::make($split[0], $output);
+			}
+
+			return $split[0];
 		} else {
 			return false;
 		}
