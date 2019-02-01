@@ -3,6 +3,7 @@
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsPage'];
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsImage'];
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsGet'];
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsToern'];
 $GLOBALS['TL_HOOKS']['parseArticles'][] = ['Anker\ModulesBundle\Classes\Article', 'parseArticles'];
 
 // Add back end modules

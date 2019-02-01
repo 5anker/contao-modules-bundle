@@ -106,4 +106,30 @@ class InsertTags extends \Frontend
 			return false;
 		}
 	}
+
+	public static function replaceInsertTagsToern($strTag)
+	{
+		// Parameter abtrennen
+		$arrSplit = explode('::', $strTag);
+
+		if ($arrSplit[0] != 'toern' && $arrSplit[0] != 'cache_toern') {
+			//nicht unser Insert-Tag
+			return false;
+		}
+
+		// Parameter angegeben?
+		if (isset($arrSplit[1])) {
+			list($days, $hours, $parts, $km) = explode(',', $arrSplit[1]);
+			return implode('', [
+				'<div class="toern-info">',
+				"<div tooltip title=\"{$days} Tage\"><i class=\"bicon-days\"></i> {$days}<span> Tage</span></div>",
+				"<div tooltip title=\"{$hours} Stunden Fahrzeit\"><i class=\"bicon-clock\"></i> {$hours} Std.<span> Fahrzeit</span></div>",
+				"<div tooltip title=\"{$parts} Schleusen\"><i class=\"bicon-gate\"></i> {$parts}<span> Schleusen</span></div>",
+				"<div tooltip title=\"{$km}km Fahrstrecke\"><i class=\"bicon-length\"></i> {$km}km<span> Fahrstrecke</span></div>",
+				'</div>'
+			]);
+		} else {
+			return false;
+		}
+	}
 }
