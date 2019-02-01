@@ -1,6 +1,7 @@
 <?php
 
 $GLOBALS['TL_LANG']['tl_content']['pages_legend'] = 'Seitenauswahl';
+$GLOBALS['TL_LANG']['tl_content']['content_legend'] = 'Inhalt';
 $GLOBALS['TL_LANG']['tl_content']['header_panel_legend'] = 'Kopf Einstellungen';
 
 $GLOBALS['TL_LANG']['tl_content']['linked_pages'][0] = 'Seiten';

@@ -9,7 +9,7 @@ class ContentTextBox extends \Contao\ContentElement
 	 * Template
 	 * @var string
 	 */
-	protected $strTemplate = 'ce_content_box';
+	protected $strTemplate = 'ce_text_image_box';
 
 	/**
 	 * Generate the module
@@ -34,8 +34,14 @@ class ContentTextBox extends \Contao\ContentElement
 		if (TL_MODE == 'FE') {
 			foreach ($tags as $tag) {
 				if (!empty($tag)) {
-					list($type, $no, $title) = explode('::', $tag);
-					$templateTags[] = '<a class="btn btn-sm btn-yellow" href="{{'.$type.'_url::'.$no.'}}" title="{{'.$type.'_title::'.$no.'}}">' . $title . '</a>';
+					list($type, $no, $title) = $expl = explode('::', $tag);
+					list($id, $queryString) = explode('?', $no);
+
+					if (count($expl) == 1) {
+						$templateTags[] = '<button class="btn btn-sm btn-yellow inline">' . $tag . '</button>';
+					} else {
+						$templateTags[] = '<a class="btn btn-sm btn-yellow inline" href="{{'.$type.'_url::'.$id.'}}'.($queryString ? '?' . $queryString : '').'" title="{{'.$type.'_title::'.$id.'}}">' . $title . '</a>';
+					}
 				}
 			}
 		}

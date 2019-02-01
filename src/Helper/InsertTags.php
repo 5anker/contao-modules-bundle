@@ -40,7 +40,7 @@ class InsertTags extends \Frontend
 		}
 
 		if (count($arrSplit2) == 2) {
-			return static::replaceInsertTagsImage('img::' . $arrSplit[1]);
+			return static::replaceInsertTagsImage('img::' . $url . '?' . $arrSplit2[1]);
 		}
 
 		return $url;
@@ -69,6 +69,39 @@ class InsertTags extends \Frontend
 			}
 
 			return $split[0];
+		} else {
+			return false;
+		}
+	}
+
+	public static function replaceInsertTagsGet($strTag)
+	{
+		// Parameter abtrennen
+		$arrSplit = explode('::', $strTag);
+
+		if ($arrSplit[0] != 'get' && $arrSplit[0] != 'cache_get') {
+			//nicht unser Insert-Tag
+			return false;
+		}
+
+		// Parameter angegeben?
+		if (isset($arrSplit[1])) {
+			list($form, $except) = explode(':', $arrSplit[1]);
+			if ($form == '_form') {
+				$output = [];
+				foreach ($_GET as $k => $v) {
+					if (!empty($except)) {
+						$ex = explode(',', $except);
+						if (in_array($k, $ex)) {
+							continue;
+						}
+					}
+					$output[] = '<input type="hidden" name="'.$k.'" value="'.$v.'" />';
+				}
+				return implode('', $output);
+			} else {
+				return ($_GET[$arrSplit[1]] ?? false);
+			}
 		} else {
 			return false;
 		}

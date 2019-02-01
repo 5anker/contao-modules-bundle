@@ -25,6 +25,10 @@ class NewsMeta extends Frontend
 			$objPage->title = $news->headline;
 		}
 
+		if ($news->bodyClass) {
+			$objPage->cssClass .= ' ' . $news->bodyClass;
+		}
+
 		if ($news->pageTitle) {
 			$objPage->pageTitle = $news->pageTitle;
 		}

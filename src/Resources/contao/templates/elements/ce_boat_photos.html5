@@ -1,9 +1,10 @@
 <div class="row">
+
 	<div class="col-6 mb-3">
 		<div class="relative">
 			<div class="image-layer">Außenansicht</div>
 			<a href="{{img::<?= $this->boat->photo_url ?>?w=1000}}" data-lightbox="<?= $this->boat->model->manufacturer->name. ' '. $this->boat->model->name. ' '. $this->boat->id ?>" data-title="<?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> Außenansicht 1">
-				<img src="{{img::<?= $this->boat->photo_url; ?>?w=500&h=350&fit=crop&markh=10w}}" class="img-fluid" alt="<?= $this->boat->type->name ?> mieten" title="<?= $this->boat->type->name ?> mieten">
+				<img data-src="{{img::<?= $this->boat->photo_url; ?>?w=500&h=350&fit=crop&markh=10w}}" class="lazy img-fluid" alt="<?= $this->boat->type->name ?> mieten" title="<?= $this->boat->type->name ?> mieten">
 			</a>
 		</div>
 	</div>
@@ -13,7 +14,7 @@
 			<div class="relative">
 				<div class="image-layer"><?= $image->image_type ?></div>
 				<a href="{{img::<?= $image->photo_url ?>?w=1000}}" data-lightbox="<?= $this->boat->model->manufacturer->name. ' '. $this->boat->model->name. ' '. $this->boat->id ?>" data-title="<?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>" title="<?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>">
-					<img src="{{img::<?= $image->photo_url; ?>?w=500&h=350&fit=crop&markh=10w}}" class="img-fluid" alt="<?= $this->boat->type->name ?> mieten - <?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>" title="<?= $this->boat->type->name ?> mieten - <?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>">
+					<img data-src="{{img::<?= $image->photo_url; ?>?w=500&h=350&fit=crop&markh=10w}}" class="lazy img-fluid" alt="<?= $this->boat->type->name ?> mieten - <?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>" title="<?= $this->boat->type->name ?> mieten - <?= $this->boat->type->name ?> <?= $this->boat->model->manufacturer->name ?> <?= $this->boat->model->name ?> Nr. <?= $this->boat->id ?> <?= $image->image_type ?> <?= $key+2 ?>">
 				</a>
 			</div>
 		</div>

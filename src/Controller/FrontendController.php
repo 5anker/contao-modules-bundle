@@ -4,6 +4,7 @@ namespace Anker\ModulesBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -27,6 +28,11 @@ class FrontendController extends Controller
 
 		parse_str($query, $params);
 
+		if (substr(ltrim($path, '/'), 0, 8) == 'storage/' && !is_file($image)) {
+			mkdir(dirname($image), 0755, true);
+			file_put_contents($image, file_get_contents('https://connect.5-anker.com/'.trim($path, '/')));
+		}
+
 		if (!is_file($image)) {
 			return new BinaryFileResponse(TL_ROOT. '/files/br24de/images/dummy.png');
 		}
@@ -37,7 +43,7 @@ class FrontendController extends Controller
 
 		mkdir(TL_ROOT . '/assets/images/' . substr($objFile->filename, -1), 0755, true);
 
-		$strCacheName = 'assets/images/' . substr($objFile->filename, -1) . '/' . $objFile->filename . '-' . substr(md5(http_build_query($allParams)), 0, 12) . '.' . $objFile->extension;
+		$strCacheName = 'assets/images/' . substr($objFile->filename, -1) . '/' . $objFile->filename . '-' . substr(md5(http_build_query($allParams).filemtime($image)), 0, 12) . '.' . $objFile->extension;
 
 		if (!is_file(TL_ROOT . '/' .$strCacheName)) {
 			$server = \League\Glide\ServerFactory::create([
@@ -52,6 +58,42 @@ class FrontendController extends Controller
 			rename(TL_ROOT. '/assets/images/glide/' . $cachedImg, TL_ROOT. '/' . $strCacheName);
 		}
 
-		return new BinaryFileResponse(TL_ROOT. '/' . $strCacheName);
+		$response = new Response();
+		$fileStream = TL_ROOT. '/' . $strCacheName;
+
+		if (! is_file($fileStream)) {
+			$response->setStatusCode(404);
+
+			return $response;
+		}
+
+		// Caching...
+		$sLastModified = filemtime($fileStream);
+		$sEtag = md5_file($fileStream);
+
+		$sFileSize = filesize($fileStream);
+		$aInfo = getimagesize($fileStream);
+
+		if (in_array($sEtag, $request->getETags()) || $request->headers->get('If-Modified-Since') === gmdate("D, d M Y H:i:s", $sLastModified)." GMT") {
+			$response->headers->set("Content-Type", $aInfo['mime']);
+			$response->headers->set("Last-Modified", gmdate("D, d M Y H:i:s", $sLastModified)." GMT");
+			$response->setETag($sEtag);
+			$response->setPublic();
+			$response->setStatusCode(304);
+
+			return $response;
+		}
+
+		$oStreamResponse = new StreamedResponse();
+		$oStreamResponse->headers->set("Content-Type", $aInfo['mime']);
+		$oStreamResponse->headers->set("Content-Length", $sFileSize);
+		$oStreamResponse->headers->set("ETag", $sEtag);
+		$oStreamResponse->headers->set("Last-Modified", gmdate("D, d M Y H:i:s", $sLastModified)." GMT");
+
+		$oStreamResponse->setCallback(function () use ($fileStream) {
+			readfile($fileStream);
+		});
+
+		return $oStreamResponse;
 	}
 }

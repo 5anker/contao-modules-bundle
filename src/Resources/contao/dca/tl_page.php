@@ -55,5 +55,5 @@ $GLOBALS['TL_DCA']['tl_page']['fields']['import_id'] = [
 ];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['import_data'] = [
-	'sql'                     => "longtext NOT NULL default ''"
+	'sql'                     => "longtext NULL"
 ];
