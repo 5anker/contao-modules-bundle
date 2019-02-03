@@ -53,6 +53,7 @@ class Import extends System
 			$np->pid = 201;
 			$np->tstamp = time();
 			$np->sorting = 846;
+			$np->sitemapPriority = 5;
 			$np->title = $boat->model->manufacturer->name . ' ' . $boat->model->name . ' Nr. ' . $boat->id;
 			$np->alias = $boat->slug;
 			$np->description = $boat->metas->meta_description ?? '';
