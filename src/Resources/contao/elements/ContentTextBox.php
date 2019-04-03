@@ -31,7 +31,7 @@ class ContentTextBox extends \Contao\ContentElement
 		$tags = unserialize($this->listitems);
 		$templateTags = [];
 
-		if (TL_MODE == 'FE') {
+		if (TL_MODE == 'FE' && is_array($tags)) {
 			foreach ($tags as $tag) {
 				if (!empty($tag)) {
 					list($type, $no, $title) = $expl = explode('::', $tag);
