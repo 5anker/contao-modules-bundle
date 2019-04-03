@@ -2,7 +2,6 @@
 
 namespace Anker\ModulesBundle\Controller;
 
-use Anker\ModulesBundle\Helper\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
@@ -67,7 +66,9 @@ class ImageController extends Controller
 		}
 
 		if ($webP && !is_file(TL_ROOT. '/' . $strCacheName . $webP)) {
-			Image::createWebPFile(TL_ROOT. '/' . $strCacheName, strtolower($objFile->extension));
+			if (!$this->createWebPFile(TL_ROOT. '/' . $strCacheName)) {
+				$webP = '';
+			}
 		}
 
 		$response = new Response();
@@ -107,5 +108,25 @@ class ImageController extends Controller
 		});
 
 		return $oStreamResponse;
+	}
+
+	public function createWebPFile($file)
+	{
+		$aInfo = getimagesize($file);
+
+		try {
+			if ($aInfo['mime'] == 'image/png') {
+				$img = imagecreatefrompng($file);
+				imagepalettetotruecolor($img);
+
+				imagewebp($img, $file . '.webp');
+			} elseif ($aInfo['mime']== 'image/jpg' || $aInfo['mime'] == 'image/jpeg') {
+				imagewebp(imagecreatefromjpeg($file), $file . '.webp');
+			}
+
+			return true;
+		} catch (\Exception $e) {
+			return false;
+		}
 	}
 }

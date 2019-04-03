@@ -4,7 +4,7 @@ namespace Anker\ModulesBundle\Helper;
 
 class InsertTags extends \Frontend
 {
-	public static function replaceInsertTagsPage($strTag)
+	public function replaceInsertTagsPage($strTag)
 	{
 		$page = $GLOBALS['objPage'];
 
@@ -46,7 +46,7 @@ class InsertTags extends \Frontend
 		return $url;
 	}
 
-	public static function replaceInsertTagsImage($strTag)
+	public function replaceInsertTagsImage($strTag)
 	{
 		// Parameter abtrennen
 		$arrSplit = explode('::', $strTag);
@@ -57,24 +57,10 @@ class InsertTags extends \Frontend
 		}
 
 		// Parameter angegeben?
-		if (isset($arrSplit[1])) {
-			$query = $arrSplit[1];
-			$split = explode('?', $query);
-
-			if (count($split) == 2) {
-				parse_str($split[1], $output);
-				ksort($output);
-
-				return Image::make($split[0], $output);
-			}
-
-			return $split[0];
-		} else {
-			return false;
-		}
+		return isset($arrSplit[1]) ? ('img/' . $arrSplit[1]) : false;
 	}
 
-	public static function replaceInsertTagsGet($strTag)
+	public function replaceInsertTagsGet($strTag)
 	{
 		// Parameter abtrennen
 		$arrSplit = explode('::', $strTag);
@@ -100,14 +86,14 @@ class InsertTags extends \Frontend
 				}
 				return implode('', $output);
 			} else {
-				return ($_GET[$arrSplit[1]] ?? false);
+				return ($_GET[$arrSplit[1]] ?? '');
 			}
 		} else {
 			return false;
 		}
 	}
 
-	public static function replaceInsertTagsToern($strTag)
+	public function replaceInsertTagsToern($strTag)
 	{
 		// Parameter abtrennen
 		$arrSplit = explode('::', $strTag);
@@ -133,7 +119,7 @@ class InsertTags extends \Frontend
 		}
 	}
 
-	public static function replaceInsertTagsCookies($strTag)
+	public function replaceInsertTagsCookies($strTag)
 	{
 		$arrSplit = explode('::', $strTag);
 
