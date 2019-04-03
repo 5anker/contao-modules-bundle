@@ -23,6 +23,9 @@ class ImageController extends Controller
 	 */
 	public function imgAction(Request $request, $path)
 	{
+		preg_match('/\.([a-zA-Z]+)$/', $path, $matches);
+		list($full, $extension) = $matches;
+
 		$webP = strpos($path, '.webp') !== false ? '.webp' : '';
 		$path = str_replace('.webp', '', $path);
 
@@ -35,6 +38,10 @@ class ImageController extends Controller
 		if (substr(ltrim($path, '/'), 0, 8) == 'storage/' && !is_file($image)) {
 			mkdir(dirname($image), 0755, true);
 			file_put_contents($image, file_get_contents('https://connect.5-anker.com/'.trim($path, '/')));
+		}
+
+		if (!in_array(['jpg', 'png', 'jpeg'], $extension) && is_file($image)) {
+			return $this->streamFile($image, $request);
 		}
 
 		if (!is_file($image)) {
@@ -71,8 +78,12 @@ class ImageController extends Controller
 			}
 		}
 
+		return $this->streamFile(TL_ROOT. '/' . $strCacheName . $webP, $request);
+	}
+
+	public function streamFile($fileStream, $request)
+	{
 		$response = new Response();
-		$fileStream = TL_ROOT. '/' . $strCacheName . $webP;
 
 		if (! is_file($fileStream)) {
 			$response->setStatusCode(404);
@@ -84,11 +95,12 @@ class ImageController extends Controller
 		$sLastModified = filemtime($fileStream);
 		$sEtag = md5_file($fileStream);
 
+		$mime = mime_content_type($fileStream);
 		$sFileSize = filesize($fileStream);
 		$aInfo = getimagesize($fileStream);
 
 		if (in_array($sEtag, $request->getETags()) || $request->headers->get('If-Modified-Since') === gmdate("D, d M Y H:i:s", $sLastModified)." GMT") {
-			$response->headers->set("Content-Type", $aInfo['mime']);
+			$response->headers->set("Content-Type", $mime);
 			$response->headers->set("Last-Modified", gmdate("D, d M Y H:i:s", $sLastModified)." GMT");
 			$response->setETag($sEtag);
 			$response->setPublic();
@@ -97,8 +109,9 @@ class ImageController extends Controller
 			return $response;
 		}
 
+
 		$oStreamResponse = new StreamedResponse();
-		$oStreamResponse->headers->set("Content-Type", $aInfo['mime']);
+		$oStreamResponse->headers->set("Content-Type", $mime);
 		$oStreamResponse->headers->set("Content-Length", $sFileSize);
 		$oStreamResponse->headers->set("ETag", $sEtag);
 		$oStreamResponse->headers->set("Last-Modified", gmdate("D, d M Y H:i:s", $sLastModified)." GMT");
@@ -112,21 +125,29 @@ class ImageController extends Controller
 
 	public function createWebPFile($file)
 	{
-		$aInfo = getimagesize($file);
+		$mime = mime_content_type($file);
 
 		try {
-			if ($aInfo['mime'] == 'image/png') {
-				$img = imagecreatefrompng($file);
-				imagepalettetotruecolor($img);
-
-				imagewebp($img, $file . '.webp');
-			} elseif ($aInfo['mime']== 'image/jpg' || $aInfo['mime'] == 'image/jpeg') {
-				imagewebp(imagecreatefromjpeg($file), $file . '.webp');
+			if ($mime == 'image/png') {
+				$img = $this->trueColor(imagecreatefrompng($file));
+			} elseif ($mime == 'image/jpeg') {
+				$img = $this->trueColor(imagecreatefromjpeg($file));
 			}
+
+			imagewebp($img, $file . '.webp');
 
 			return true;
 		} catch (\Exception $e) {
 			return false;
 		}
+	}
+
+	public function trueColor($im)
+	{
+		if (!imageistruecolor($im)) {
+			imagepalettetotruecolor($im);
+		}
+
+		return im;
 	}
 }
