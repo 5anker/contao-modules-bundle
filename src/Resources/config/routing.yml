@@ -1,9 +1,25 @@
 league_glide:
     path:     /img/{path}
     defaults:
-        _controller: AnkerModulesBundle:Frontend:img
+        _controller: AnkerModulesBundle:Image:img
         _scope: frontend
         _token_check: false
         path: ''
     requirements:
         path: '.*'
+referer:
+    path:     /rf/{path}
+    defaults:
+        _controller: AnkerModulesBundle:Referer:redirect
+        _scope: frontend
+        _token_check: false
+        path: ''
+    requirements:
+        path: '.*'
+robots:
+    path:     /robots.txt
+    defaults:
+        _controller: AnkerModulesBundle:Robots:robots
+        _scope: frontend
+        _token_check: false
+        path: ''

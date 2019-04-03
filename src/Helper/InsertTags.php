@@ -132,4 +132,21 @@ class InsertTags extends \Frontend
 			return false;
 		}
 	}
+
+	public static function replaceInsertTagsCookies($strTag)
+	{
+		$arrSplit = explode('::', $strTag);
+
+		if ($arrSplit[0] != 'cookie' && $arrSplit[0] != 'cache_cookie') {
+			//nicht unser Insert-Tag
+			return false;
+		}
+
+		// Parameter angegeben?
+		if (isset($arrSplit[1])) {
+			return $_COOKIE[$arrSplit[1]] ?? '';
+		} else {
+			return false;
+		}
+	}
 }

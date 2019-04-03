@@ -167,20 +167,8 @@ class SitemapAutomator extends ContaoAutomator
 			$this->log('Generated sitemap "' . $objRoot->sitemapName . '.xml (gSitemap)"', __METHOD__, TL_CRON);
 		}
 
-		if (\Config::get('activateSitemapIndex') == true) {
-			Sitemap::buildSitemapIndex();
-
-			$this->log('Generated sitemapIndex "' . \Config::get('sitemapIndexName') . '.xml" (gSitemap)', __METHOD__, TL_CRON);
+		if (\Config::get('sitemapPingGoogleBing') == true) {
+			Sitemap::pingGoogleBing($objRoot->id);
 		}
-
-		/* Leave this out for now...
-		if (\Config::get('sitemapPingGoogleBing') == true)
-		{
-			if ($objRoot->inSitemapIndex == true)
-			{
-				Sitemap::pingGoogleBing($objRoot->id);
-			}
-		}
-		*/
 	}
 }

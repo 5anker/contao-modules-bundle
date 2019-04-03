@@ -7,6 +7,7 @@ $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\Inser
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsImage'];
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsGet'];
 $GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsToern'];
+$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = ['Anker\ModulesBundle\Helper\InsertTags', 'replaceInsertTagsCookies'];
 $GLOBALS['TL_HOOKS']['parseArticles'][] = ['Anker\ModulesBundle\Classes\Article', 'parseArticles'];
 
 // Content elements
@@ -24,6 +25,7 @@ if (TL_MODE == 'BE') {
 $GLOBALS['TL_HOOKS']['postUpload'][] = ['Anker\ModulesBundle\Helper\Upload', 'processPostUpload'];
 
 $GLOBALS['TL_CRON']['minutely'][] = ['Anker\ModulesBundle\Helper\Import', 'importBoats'];
+$GLOBALS['TL_CRON']['minutely'][] = ['Anker\ModulesBundle\Classes\CopyScripts', 'copy'];
 
 $GLOBALS["TL_HOOKS"]['generatePage'][] = ['Anker\ModulesBundle\Classes\NewsMeta', 'onGeneratePage'];
 

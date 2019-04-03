@@ -101,6 +101,8 @@ class Sitemap extends \Backend
 
 						if (!empty($objPage->import_data)) {
 							$boatData = json_decode($objPage->import_data);
+							$arrPage['lastmod'] = date("Y-m-d", strtotime($boatData->updated_at));
+
 							$arrPage['ce'][] = [
 								'ceType' => 'image',
 								'ceUrl' => \Environment::get('base') . 'img' . $boatData->photo_url,
@@ -200,31 +202,6 @@ class Sitemap extends \Backend
 	}
 
 	/**
-	 * Ping google and bing
-	 *
-	 * @param int $rootId
-	 */
-	public function pingGoogleBing($rootId, $inSitemapIndex = false)
-	{
-		$objRoot = \PageModel::findBy(['id=?'], [$rootId]);
-
-		if ($objRoot != null && $objRoot->type != 'regular') {
-			if (\Config::get('sitemapPingGoogleBing') && $objRoot->sitemapLastPing < (time() - 3600000) && $objRoot->inSitemapIndex == false) {
-				$objPing = new \Request();
-
-				//$pingGoogle = $objPing->send('http://www.google.com/ping?sitemap=' . $sitemapName . '.xml');
-				//$pingBing = $objPing->send('http://www.bing.com/ping?sitemap=' . $sitemapName . '.xml');
-
-				unset($objPing);
-
-				$objRoot->sitemapLastPing = time();
-				$objRoot->save();
-			}
-		}
-	}
-
-
-	/**
 	 * Automatically update the lastmod for the page from page, articles or content elements
 	 *
 	 * @param DataContainer $dc
@@ -248,33 +225,31 @@ class Sitemap extends \Backend
 		$objLastmodDate = $objDatabase->prepare('UPDATE tl_page SET sitemapLastmodDate=? WHERE id=?')->execute($time, $objPage != null ? $objPage->id : $dc->id);
 	}
 
-
 	/**
-	 * Build the sitemap index file
+	 * Ping google and bing
 	 *
 	 * @param int $rootId
 	 */
-	public function buildSitemapIndex()
+	public function pingGoogleBing($rootId)
 	{
-		$objDatabase = \Database::getInstance();
+		$objRoot = \PageModel::findBy(['id=?'], [$rootId]);
 
-		$objSitemaps = $objDatabase->prepare("SELECT * FROM tl_page WHERE inSitemapIndex =? AND sitemapName !=?")->execute('1', '');
+		if ($objRoot != null && $objRoot->type != 'regular') {
+			if (\Config::get('sitemapPingGoogleBing') && $objRoot->sitemapLastPing < (time() - 172800)) {
+				$objPing = new \Request();
 
-		if ($objSitemaps != null) {
-			$objFile = new \File('web/share/' . \Config::get('sitemapIndexName') . '.xml', true);
-			$objFile->truncate();
-			$objFile->append('<?xml version="1.0" encoding="UTF-8"?>');
-			$objFile->append('<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+				$sitemap = (\Environment::get('ssl') ? 'https://' : 'http://') . \Environment::get('host') . '/share/' . $objRoot->sitemapName . '.xml';
 
-			while ($objSitemaps->next()) {
-				$objFile->append('  <sitemap>');
-				$objFile->append('    <loc>' . \Environment::get('base') . 'share/' . $objSitemaps->sitemapName . '.xml</loc>');
-				$objFile->append('    <lastmod>' . date('Y-m-d', time()) . '</lastmod>');
-				$objFile->append('  </sitemap>');
+				$pingGoogle = $objPing->send('http://www.google.com/webmasters/tools/ping?sitemap=' . urlencode($sitemap));
+				$pingBing = $objPing->send('http://www.bing.com/webmaster/ping.aspx?sitemap=' . urlencode($sitemap));
+
+				unset($objPing);
+
+				$objRoot->sitemapLastPing = time();
+				$objRoot->save();
+
+				\System::log('Google and Bing pinged', __METHOD__, TL_CRON);
 			}
-
-			$objFile->append('</sitemapindex>');
-			$objFile->close();
 		}
 	}
 }

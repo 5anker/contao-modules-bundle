@@ -85,7 +85,7 @@ if (Input::get('do') == 'news') {
 	}
 }
 
-class tl_anker_content
+class tl_anker_content extends tl_content
 {
 	/**
 	 * Check for modified news feeds and update the XML files if necessary

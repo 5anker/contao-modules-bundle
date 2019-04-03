@@ -2,11 +2,20 @@
 
 // Add palettes to tl_page
 
+$GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace('createSitemap;', 'createSitemap;{robots_legend:hide},robotsTxtContent;', $GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
 $GLOBALS['TL_DCA']['tl_page']['palettes']['regular'] = str_replace('protected;', 'protected;{image_legend:hide},backgroundSRC,teaserSRC,iconSRC;', $GLOBALS['TL_DCA']['tl_page']['palettes']['regular']);
 $GLOBALS['TL_DCA']['tl_page']['palettes']['redirect'] = str_replace('protected;', 'protected;{image_legend:hide},backgroundSRC,teaserSRC,iconSRC;', $GLOBALS['TL_DCA']['tl_page']['palettes']['redirect']);
 $GLOBALS['TL_DCA']['tl_page']['palettes']['forward'] = str_replace('protected;', 'protected;{image_legend:hide},backgroundSRC,teaserSRC,iconSRC;', $GLOBALS['TL_DCA']['tl_page']['palettes']['forward']);
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['alias']['save_callback'][] = ['tl_page_anker', 'checkAlias'];
+
+$GLOBALS['TL_DCA']['tl_page']['fields']['robotsTxtContent'] = [
+	'label'                   => &$GLOBALS['TL_LANG']['tl_page']['robotsTxtContent'],
+	'exclude'                 => true,
+	'inputType'               => 'textarea',
+	'eval'                    => ['style'=>' min-height:60px', 'tl_class'=>'clr'],
+	'sql'                     => "text NULL"
+];
 
 $GLOBALS['TL_DCA']['tl_page']['fields']['backgroundSRC'] = [
 	'label'                   => &$GLOBALS['TL_LANG']['tl_page']['backgroundSRC'],

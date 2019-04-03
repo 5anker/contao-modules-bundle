@@ -18,3 +18,8 @@ $GLOBALS['TL_LANG']['tl_page']['gsitemap_sitemapPriority'] = ['Priorität dieser
 $GLOBALS['TL_LANG']['tl_page']['gsitemap_sitemapChangefreq'] = ['Änderungshäufigkeit', 'Vorraussichtliche Änderungshäufigkeit der Seite.'];
 $GLOBALS['TL_LANG']['tl_page']['gsitemap_sitemapLastmodAutomaticOff'] = ['Letztes Änderungsdatum manuell hinzufügen', 'Sie können das letzte Änderungsdatum manuell setzen oder automatisch einfügen lassen.'];
 $GLOBALS['TL_LANG']['tl_page']['gsitemap_sitemapLastmodDate'] = ['Letzte Änderung', 'Setzen Sie hier ein spezifisches Änderungsdatum.'];
+
+// Robots TXT
+
+$GLOBALS['TL_LANG']['tl_page']['robots_legend'] = 'Robots.txt';
+$GLOBALS['TL_LANG']['tl_page']['robotsTxtContent'] = ["Inhalt der robots.txt", "Geben Sie den Inhalt der robots.txt an."];

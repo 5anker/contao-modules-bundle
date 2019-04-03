@@ -2,8 +2,10 @@
 
 namespace Anker\ModulesBundle\Controller;
 
+use Anker\ModulesBundle\Helper\Image;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -12,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Handles front end routes.
  *
  */
-class FrontendController extends Controller
+class ImageController extends Controller
 {
 	/**
 	 * Renders the content.
@@ -22,6 +24,9 @@ class FrontendController extends Controller
 	 */
 	public function imgAction(Request $request, $path)
 	{
+		$webP = strpos($path, '.webp') !== false ? '.webp' : '';
+		$path = str_replace('.webp', '', $path);
+
 		$image = TL_ROOT . '/web/' . trim($path, '/');
 		$split = explode('?', $request->getRequestUri());
 		$query = count($split) == 2 ? $split[1] : '';
@@ -56,10 +61,17 @@ class FrontendController extends Controller
 			$cachedImg = $server->makeImage($image, $allParams);
 
 			rename(TL_ROOT. '/assets/images/glide/' . $cachedImg, TL_ROOT. '/' . $strCacheName);
+
+			$optimizerChain = OptimizerChainFactory::create();
+			$optimizerChain->optimize(TL_ROOT. '/' . $strCacheName);
+		}
+
+		if ($webP && !is_file(TL_ROOT. '/' . $strCacheName . $webP)) {
+			Image::createWebPFile(TL_ROOT. '/' . $strCacheName, strtolower($objFile->extension));
 		}
 
 		$response = new Response();
-		$fileStream = TL_ROOT. '/' . $strCacheName;
+		$fileStream = TL_ROOT. '/' . $strCacheName . $webP;
 
 		if (! is_file($fileStream)) {
 			$response->setStatusCode(404);
