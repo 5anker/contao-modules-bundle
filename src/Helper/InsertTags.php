@@ -57,7 +57,7 @@ class InsertTags extends \Frontend
 		}
 
 		// Parameter angegeben?
-		return isset($arrSplit[1]) ? ('img/' . $arrSplit[1]) : false;
+		return isset($arrSplit[1]) ? ('img/' . ltrim($arrSplit[1], '/')) : false;
 	}
 
 	public function replaceInsertTagsGet($strTag)
