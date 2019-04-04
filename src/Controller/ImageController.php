@@ -74,7 +74,6 @@ class ImageController extends Controller
 
 		if ($webP && !is_file(TL_ROOT. '/' . $strCacheName . $webP)) {
 			if (!$this->createWebPFile(TL_ROOT. '/' . $strCacheName)) {
-				dd('a');
 				$webP = '';
 			}
 		}
