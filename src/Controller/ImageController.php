@@ -40,9 +40,7 @@ class ImageController extends Controller
 			file_put_contents($image, file_get_contents('https://connect.5-anker.com/'.trim($path, '/')));
 		}
 
-
-
-		if (!in_array($extension, ['jpg', 'png', 'jpeg']) && is_file($image)) {
+		if (!in_array($extension, ['jpg', 'png', 'jpeg', 'webp']) && is_file($image)) {
 			return $this->streamFile($image, $request);
 		}
 
@@ -76,6 +74,7 @@ class ImageController extends Controller
 
 		if ($webP && !is_file(TL_ROOT. '/' . $strCacheName . $webP)) {
 			if (!$this->createWebPFile(TL_ROOT. '/' . $strCacheName)) {
+				dd('a');
 				$webP = '';
 			}
 		}
@@ -150,6 +149,6 @@ class ImageController extends Controller
 			imagepalettetotruecolor($im);
 		}
 
-		return im;
+		return $im;
 	}
 }
