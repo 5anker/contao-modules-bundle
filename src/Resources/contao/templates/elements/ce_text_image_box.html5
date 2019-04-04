@@ -1,7 +1,7 @@
 <section class="post-item <?= $this->class ?>">
 	<?php $align = trim($this->arrData['floatClass']) == 'float_right' ? 'right' : 'left' ?>
 	<?php if($this->arrData['src']): ?>
-	<a href="<?= $this->arrData['src']; ?>" data-lightbox="toern" data-title="<?= $this->arrData['title'] ?: $this->headline; ?>">
+	<a href="<?= $this->arrData['src']; ?>" data-mediabox="toern" data-title="<?= $this->arrData['title'] ?: $this->headline; ?>">
 		<?php if (TL_MODE == 'FE'): ?>
 		<img align="<?= $align; ?>" alt="<?= $this->arrData['alt'] ?: $this->headline; ?>" title="<?= $this->arrData['title'] ?: $this->headline; ?>" class="lazy shadow" style="position: relative; <?= $align; ?>: -30px; top: -30px" data-src="{{img::<?= $this->arrData['src']; ?>?w=400&mark=}}">
 		<?php else: ?>

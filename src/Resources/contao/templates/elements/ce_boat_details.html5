@@ -1,5 +1,3 @@
-<?php $this->insert('ce_boat_license'); ?>
-
 <div class="row mt-3">
 	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
 		<table class="table table-sm">

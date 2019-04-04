@@ -1,12 +1,15 @@
+<?php if(!$this->boat->basements) $this->boat->basements = [$this->boat->basement]; ?>
+
 <div class="accordion">
-	<?php foreach($this->boat->infos as $k => $item): ?>
+	<?php foreach($this->boat->basements as $k => $item): ?>
 	<div class="card">
 		<div class="card-header <?= $k === 0 ? '' : 'collapsed' ?>" data-toggle="collapse" data-target="#collapse<?= $k; ?>" aria-expanded="true" aria-controls="collapse<?= $k; ?>">
-			<?= $item->title; ?>
+			<?= $item->name; ?>
 		</div>
 		<div id="collapse<?= $k; ?>" class="collapse <?= $k === 0 ? 'show' : '' ?>">
+			<wls-map lat="<?= $item->lat; ?>" lng="<?= $item->lng; ?>"></wls-map>
 			<div class="card-body">
-				<?= $item->content; ?>
+				<?= $item->description; ?>
 			</div>
 		</div>
 	</div>

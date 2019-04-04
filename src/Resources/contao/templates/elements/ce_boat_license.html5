@@ -1,4 +1,6 @@
-<?php if($this->boat->licenses_str == ''): ?>
+<?php if(count($this->boat->basements) > 1): ?>
+	<div class="alert alert-warning">Führerscheinvoraussetzungen abhängig von der Destination</div>
+<?php elseif($this->boat->licenses_str == ''): ?>
 	<div class="alert alert-warning">keine Führerscheinvoraussetzungen!</div>
 <?php elseif($this->boat->licenses_str == 'Charterbescheinigung'): ?>
 	<div class="alert alert-warning" v-b-tooltip title="In Deutschland gilt prinzipiell die Bootsführerscheinpflicht (über 15PS). Dank Teilnahme an einer erweiterten Chartereinweisung können Sie jedoch eine befristete Genehmigung - zum Führen bestimmter Yachten, in einigen Gebieten - erhalten.">Führerscheinvoraussetzungen: Charterbescheinigung oder SBF falls vorhanden</div>
