@@ -56,8 +56,19 @@ class InsertTags extends \Frontend
 			return false;
 		}
 
+		$imgU = ltrim($arrSplit[1], '/');
+
+		$schema = parse_url($imgU, PHP_URL_SCHEME);
+		$host = parse_url($imgU, PHP_URL_HOST);
+		$prefix = '';
+
+		if ($schema) {
+			$imgU = str_replace($schema . '://' . $host . '/', '', $imgU);
+			$prefix = $schema . '://' . $host . '/';
+		}
+
 		// Parameter angegeben?
-		return isset($arrSplit[1]) ? ('img/' . ltrim($arrSplit[1], '/')) : false;
+		return isset($arrSplit[1]) ? ($prefix . ('img/' . $imgU)) : false;
 	}
 
 	public function replaceInsertTagsGet($strTag)
