@@ -16,6 +16,15 @@ referer:
         path: ''
     requirements:
         path: '.*'
+boat:
+    path:     /boat/{id}
+    defaults:
+        _controller: AnkerModulesBundle:Boat:boat
+        _scope: frontend
+        _token_check: false
+        path: ''
+    requirements:
+        path: '.*'
 robots:
     path:     /robots.txt
     defaults:
