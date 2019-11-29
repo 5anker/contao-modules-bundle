@@ -12,14 +12,9 @@
 		"role": "Developer"
 	}],
 	"require": {
-        "php": "^7.1",
+        "php": "^7.3",
         "patchwork/utf8": "^1.2",
-        "symfony/config": "3.4.* || 4.1.*",
-        "symfony/dependency-injection": "3.4.* || 4.1.*",
-        "symfony/http-kernel": "3.4.* || 4.1.*",
-        "symfony/yaml": "3.4.* || 4.1.*",
 		"spatie/image-optimizer": "^1.1",
-		"illuminate/support": "^5.7",
 		"league/glide": "^1.4"
     },
     "conflict": {
