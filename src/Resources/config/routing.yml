@@ -25,6 +25,15 @@ boat:
         path: ''
     requirements:
         path: '.*'
+adac:
+    path:     /adac/boat/{id}
+    defaults:
+        _controller: AnkerModulesBundle:Boat:adac
+        _scope: frontend
+        _token_check: false
+        path: ''
+    requirements:
+        path: '.*'
 robots:
     path:     /robots.txt
     defaults:
