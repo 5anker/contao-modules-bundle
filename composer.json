@@ -14,7 +14,12 @@
 	"require": {
         "php": "^7.3",
         "patchwork/utf8": "^1.2",
-		"spatie/image-optimizer": "^1.1",
+        "symfony/config": "4.1.*",
+        "symfony/dependency-injection": "4.1.*",
+        "symfony/http-kernel": "4.1.*",
+        "symfony/yaml": "4.1.*",
+		"spatie/image-optimizer": "^1.2",
+		"illuminate/support": "^5.7",
 		"league/glide": "^1.4"
     },
     "conflict": {
